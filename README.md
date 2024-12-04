@@ -26,6 +26,7 @@
 .
 
 + __sample_submission.zip[제출양식]__
+
   >추론한 PNG이미지들을 zip 형식으로 압축한 제출 양식
 
 - - -
