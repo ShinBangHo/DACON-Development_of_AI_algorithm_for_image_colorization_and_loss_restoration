@@ -9,18 +9,25 @@
 
 - - -
 
-### 1. 데이터(dataset info)
+### 데이터(dataset info)
 
 + __train_input[폴더]__ : 흑백, 일부 손상된 PNG 학습 이미지 (input, 29603장)
 
-__+ train_gt[폴더]__ : 원본 PNG 이미지 (target, 29603장)
++ __train_gt[폴더]__ : 원본 PNG 이미지 (target, 29603장)
 
-__+ train.csv[파일]__ : 학습을 위한 Pair한 PNG 이미지들의 경로
++ __train.csv[파일]__ : 학습을 위한 Pair한 PNG 이미지들의 경로
 
+.
 
-__+ test_input[폴더]__ : 흑백, 일부 손상된 PNG 평가 이미지 (input, 100장)
++ __test_input[폴더]__ : 흑백, 일부 손상된 PNG 평가 이미지 (input, 100장)
 
-__+ test.csv[파일]__ : 추론을 위한 Input PNG 이미지들의 경로
++ __test.csv[파일]__ : 추론을 위한 Input PNG 이미지들의 경로
 
-__+ sample_submission.zip [제출양식]__
->추론한 PNG이미지들을 zip 형식으로 압축한 제출 양식
+.
+
++ __sample_submission.zip[제출양식]__
+  >추론한 PNG이미지들을 zip 형식으로 압축한 제출 양식
+
+- - -
+
+### 코드
