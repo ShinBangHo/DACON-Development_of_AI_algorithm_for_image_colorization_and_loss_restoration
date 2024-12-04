@@ -11,13 +11,11 @@
 
 ### 1. 데이터(dataset info)
 
-__train_input[폴더]__ : 흑백, 일부 손상된 PNG 학습 이미지 (input, 29603장)
+>__train_input[폴더]__ : 흑백, 일부 손상된 PNG 학습 이미지 (input, 29603장)
 
-__train_gt[폴더]__ : 원본 PNG 이미지 (target, 29603장)
+>__train_gt[폴더]__ : 원본 PNG 이미지 (target, 29603장)
 
-__train.csv[파일]__ : 학습을 위한 Pair한 PNG 이미지들의 경로
-
-
+>__train.csv[파일]__ : 학습을 위한 Pair한 PNG 이미지들의 경로
 
 
 __test_input[폴더]__ : 흑백, 일부 손상된 PNG 평가 이미지 (input, 100장)
