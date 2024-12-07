@@ -34,3 +34,8 @@
 ### 2. 모델 아키텍쳐(model architecture)
 
 모델은 U-Net과 PatctGAN을 결합해 사용하였습니다.
+U-Net은 이미지의 특징을 추출하고 복원하는데 탁월한 아키텍쳐입니다.
+
+![image](https://github.com/user-attachments/assets/6728bcf0-31f3-4830-a827-c80de04e0615)
+
+
