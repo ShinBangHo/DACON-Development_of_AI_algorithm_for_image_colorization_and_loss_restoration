@@ -13,6 +13,10 @@
 
 + __train_input[폴더]__ : 흑백, 일부 손상된 PNG 학습 이미지 (input, 29603장)
 
+![TEST_088](https://github.com/user-attachments/assets/fa579dee-d6ce-4d63-bcff-541279cb4d24)![TEST_069](https://github.com/user-attachments/assets/9c11fa00-0eec-4388-923a-4c9442d5cec6)
+
+
+
 + __train_gt[폴더]__ : 원본 PNG 이미지 (target, 29603장)
 
 + __train.csv[파일]__ : 학습을 위한 Pair한 PNG 이미지들의 경로
@@ -33,9 +37,13 @@
 
 ### 2. 모델 아키텍쳐(model architecture)
 
-모델은 U-Net과 PatctGAN을 결합해 사용하였습니다.
-U-Net은 이미지의 특징을 추출하고 복원하는데 탁월한 아키텍쳐입니다.
+모델은 U-Net과 PatchGAN을 결합해 사용하였습니다.
+
+기본 GAN 구조는 생성자(Generator)가 랜덤 노이즈를 입력받아 이미지를 생성하고 판별자(Discriminator)가 진짜 또는 가짜 이미지인지 구분하는 구조였지만 부분 이미지
+
+U-Net의 다운샘플링(인코더)와 업샘플링(디코더) 구조를 통해 이미지 정보를 보존하며 재구성합니다.
 
 ![image](https://github.com/user-attachments/assets/6728bcf0-31f3-4830-a827-c80de04e0615)
+>U-Net Generator
 
 
