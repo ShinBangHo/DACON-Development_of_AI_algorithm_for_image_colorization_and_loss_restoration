@@ -72,4 +72,10 @@
 
 ### 2. 손실 함수(Loss Function)
 
-손실 함수를 사용하여 이미지 복원 개선
+세 가지 손실 함수 픽셀 손실(Pixel Loss), SSIM 손실(Structural Similarity Index Loss), 부드러움 손실(Smoothness Loss)을 결합했습니다.
+
+Pixel Loss에서 생성된 이미지와 원본 이미지 사이의 픽셀 단위 평균 제곱 오차(MSE)를 계산하고 픽셀 값 차이를 측정하여 생성된 이미지의 정확성을 평가합니다. SSIM Loss에서는 이미지의 전체적인 구조와 패턴 유사성을 고려하여 평가하며, Smoothness Loss로 이미지를 평활화 합니다.
+
+
+![image](https://github.com/user-attachments/assets/ccd193df-30cf-402d-8ce1-1148288b012e)
+
