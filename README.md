@@ -13,7 +13,7 @@
 
 + __train_input[폴더]__ : 흑백, 일부 손상된 PNG 학습 이미지 (input, 29603장)
 
-<img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_094.png" width="200" height="200"/>
+<img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_094.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_064.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_069.png" width="200" height="200"/>
 
 
 
@@ -24,6 +24,8 @@
 .
 
 + __test_input[폴더]__ : 흑백, 일부 손상된 PNG 평가 이미지 (input, 100장)
+
+<img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_094.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_064.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_069.png" width="200" height="200"/>
 
 + __test.csv[파일]__ : 추론을 위한 Input PNG 이미지들의 경로
 
