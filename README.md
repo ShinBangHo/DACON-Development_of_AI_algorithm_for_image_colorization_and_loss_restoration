@@ -13,7 +13,7 @@
 
 + __train_input[폴더]__ : 흑백, 일부 손상된 PNG 학습 이미지 (input, 29603장)
 
-![TEST_088](https://github.com/user-attachments/assets/fa579dee-d6ce-4d63-bcff-541279cb4d24)![TEST_069](https://github.com/user-attachments/assets/9c11fa00-0eec-4388-923a-4c9442d5cec6)
+<img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_094.png" width="200" height="200"/>
 
 
 
