@@ -74,9 +74,9 @@ epochs = 100
 
 ### 데이터 전처리(Data Preprocessing)
 
-```cv2.imread()```를 사용하여 입력 이미지와 정답 이미지를 로드하고 이 이미지들을 ```torch.tensor```로 변환 후 ```(C, H, W)```로 재배열합니다.
+```cv2.imread()```를 사용하여 입력 이미지와 정답 이미지를 로드하고 이 이미지들을 ```torch.tensor```로 변환 후 ```(C, H, W)```로 재배열했습니다.
 
-그 후, 픽셀 값을 ```[0, 1]```로 정규화합니다
+그 후, 픽셀 값을 ```[0, 1]```로 정규화했습니다.
 
 <br/>
 
@@ -117,13 +117,13 @@ class ImageDataset(Dataset):
 
 ### 모델 아키텍쳐(model architecture)
 
-모델은 U-Net과 PatchGAN을 결합해 사용하였습니다.
+모델은 U-Net과 PatchGAN을 결합해 사용했습니다.
 
-기본 GAN 구조는 생성자(Generator)가 랜덤 노이즈를 입력받아 이미지를 생성하고 판별자(Discriminator)가 진짜 또는 가짜 이미지인지 구분하는 구조였지만 부분 이미지 및 복원에 특화된 PatchGAN을 결합하였고,
+기본 GAN 구조는 생성자(Generator)가 랜덤 노이즈를 입력받아 이미지를 생성하고 판별자(Discriminator)가 진짜 또는 가짜 이미지인지 구분하는 구조지만 부분 이미지 및 복원에 특화된 PatchGAN을 결합했고,
 
 실제 동작 과정은 U-Net에서 입력 이미지를 기반으로 복원/변환 이미지를 생성하고 PatchGAN은 그대로 생성된 이미지와 원본 이미지를 구분합니다.
 
-두 개를 결합해 사용한 이유는 부분 영역을 디테일하게 복원하는 효과를 기대하며 두 개를 결합하였습니다.
+두 개를 결합해 사용한 이유는 부분 영역을 디테일하게 복원하는 효과를 기대하며 두 개를 결합했습니다.
 
 <br/>
 
@@ -243,8 +243,7 @@ def gaussian_filter(x, kernel_size=5, sigma=1.0):
 
   Pixel Loss에서 생성된 이미지와 원본 이미지 사이의 픽셀 단위 평균 제곱 오차(MSE)를 계산하고 픽셀 값 차이를 측정하여 생성된 이미지의 
   정확성을 평가합니다. SSIM Loss에서는 이미지의 전체적인 구조와 패턴 유사성을 고려하여 평가하며, Smoothness Loss로 이미지를 평활화
-  하고 이미지들 간의
-  MSE를 계산합니다.
+  하고 이미지들 간의 MSE를 계산합니다.
 
   최종적으로 각 손실에 가중치(α, β, γ)를 적용해 다양한 측면으로 최적화합니다.
 
@@ -294,12 +293,23 @@ def gaussian_filter(x, kernel_size=5, sigma=1.0):
 
 <br/>
 
-+ __U-Net + PatchGAN(Epoch=10)__
++ __U-Net + PatchGAN(Epoch=50)__
 
 <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_010_Epoch50.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_035_Epoch50.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_054_Epoch50.png" width="200" height="200"/>
 
 <br/>
 
++ __U-Net + PatchGAN + Gaussian Filter(Epoch=10)__
+
+<img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_010_GF_Epoch10.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_035_GF_Epoch10.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_054_GF_Epoch10.png" width="200" height="200"/>
+
+<br/>
+
++ __U-Net + PatchGAN + Gaussian Filter(Epoch=50)__
+
+<img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_010_GF_Epoch50.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_035_GF_Epoch50.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_054_GF_Epoch50.png" width="200" height="200"/>
+
+<br/>
 
 - - -
 
