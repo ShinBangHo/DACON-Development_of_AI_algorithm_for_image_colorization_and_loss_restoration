@@ -16,7 +16,8 @@
 + __train_input[폴더]__ : 흑백, 일부 손상된 PNG 학습 이미지 (input, 29603장)
 
 <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TRAIN_00329.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TRAIN_00555.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TRAIN_00650.png" width="200" height="200"/>
-<br/><br/>
+
+<br/>
 
 + __train_gt[폴더]__ : 원본 PNG 이미지 (target, 29603장)
 
@@ -155,7 +156,7 @@ for epoch in range(epochs):
 
 ### 추가 개선 사항(Additional improvements)
 
-+ 가우시안 필터(Gaussian Filter)
++ __가우시안 필터(Gaussian Filter)__
 
   가우시안 필터를 적용했습니다. 가우시안 필터는 이미지의 노이즈를 제거하고 에지(Edge)를 더 부드럽게 만들어주기에 이미지의 전체적인 자연스러운 느낌을 살리기 위해 사용했습니다.
 
@@ -193,7 +194,7 @@ def gaussian_filter(x, kernel_size=5, sigma=1.0):
 
 <br/>
 
-+ 손실 함수(Loss Function)
++ __손실 함수(Loss Function)__
 
   세 가지 손실 함수 픽셀 손실(Pixel Loss), SSIM 손실(Structural Similarity Index Loss), 부드러움 손실(Smoothness Loss)을 결합했습니다.
 
@@ -243,6 +244,13 @@ def gaussian_filter(x, kernel_size=5, sigma=1.0):
 |U-Net + PatchGAN|+ Gaussian Filter|50|테스트2|테스트3|테스트3|
 
 <br/>
+
++ __U-Net + PatchGAN(Epoch=10)__
+
+<img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TRAIN_00329.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TRAIN_00555.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TRAIN_00650.png" width="200" height="200"/>
+
+<br/>
+
 
 - - -
 
