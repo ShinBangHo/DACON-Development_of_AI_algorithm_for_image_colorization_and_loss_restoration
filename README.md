@@ -72,6 +72,49 @@ epochs = 100
 
 - - -
 
+### 데이터 전처리(Data Preprocessing)
+
+```cv2.imread()```를 사용하여 입력 이미지와 정답 이미지를 로드하고 이 이미지들을 ```torch.tensor```로 변환 후 ```(C, H, W)```로 재배열합니다.
+
+그 후, 픽셀 값을 ```[0, 1]```로 정규화합니다
+
+<br/>
+
+```ruby
+class ImageDataset(Dataset):
+    def __init__(self, input_dir, gt_dir, transform=None):
+        self.input_dir = input_dir
+        self.gt_dir = gt_dir
+        self.input_images = sorted(os.listdir(input_dir))
+        self.gt_images = sorted(os.listdir(gt_dir))
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.input_images)
+
+    def __getitem__(self, idx):
+        input_path = os.path.join(self.input_dir, self.input_images[idx])
+        gt_path = os.path.join(self.gt_dir, self.gt_images[idx])
+
+        input_image = cv2.imread(input_path)
+        gt_image = cv2.imread(gt_path)
+
+        if self.transform:
+            input_image = self.transform(input_image)
+            gt_image = self.transform(gt_image)
+
+        return (
+            torch.tensor(input_image).permute(2, 0, 1).float() / 255.0,
+            torch.tensor(gt_image).permute(2, 0, 1).float() / 255.0
+        )
+
+```
+> Data Preprocessing
+
+<br/>
+
+- - -
+
 ### 모델 아키텍쳐(model architecture)
 
 모델은 U-Net과 PatchGAN을 결합해 사용하였습니다.
@@ -154,7 +197,7 @@ for epoch in range(epochs):
 
 - - -
 
-### 추가 개선 사항(Additional improvements)
+### 기타 및 개선 사항(Other improvements)
 
 + __가우시안 필터(Gaussian Filter)__
 
@@ -247,7 +290,13 @@ def gaussian_filter(x, kernel_size=5, sigma=1.0):
 
 + __U-Net + PatchGAN(Epoch=10)__
 
-<img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TRAIN_00329.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TRAIN_00555.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TRAIN_00650.png" width="200" height="200"/>
+<img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_010_Epoch10.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_035_Epoch10.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_054_Epoch10.png" width="200" height="200"/>
+
+<br/>
+
++ __U-Net + PatchGAN(Epoch=10)__
+
+<img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_010_Epoch50.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_035_Epoch50.png" width="200" height="200"/> <img src="https://github.com/ShinBangHo/DACON-Development_of_AI_algorithm_for_image_colorization_and_loss_restoration/blob/main/TEST_054_Epoch50.png" width="200" height="200"/>
 
 <br/>
 
