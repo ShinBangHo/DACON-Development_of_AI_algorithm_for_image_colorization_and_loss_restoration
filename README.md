@@ -50,14 +50,36 @@
 <br/>
 
 - - -
+### 하이퍼 파라미터(hyper parameters)
+
+에포크마다 테스트 이미지 생성 및 ZIP 파일로 저장되게 설정했기 때문에 100으로 설정했습니다.
+
+<br/>
+
+```ruby
+optimizer_G = optim.Adam(generator.parameters(), lr=0.0001, betas=(0.5, 0.999))
+optimizer_D = optim.Adam(discriminator.parameters(), lr=0.0001, betas=(0.5, 0.999))
+
+train_dataset = ImageDataset("train_input", "train_gt")
+train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=1, pin_memory=True)
+
+epochs = 100
+```
+> hyper parameters
+
+<br/>
+
+- - -
 
 ### 모델 아키텍쳐(model architecture)
 
 모델은 U-Net과 PatchGAN을 결합해 사용하였습니다.
 
-기본 GAN 구조는 생성자(Generator)가 랜덤 노이즈를 입력받아 이미지를 생성하고 판별자(Discriminator)가 진짜 또는 가짜 이미지인지 구분하는 구조였지만 부분 이미지 및 복원에 특화시키기 위해 U-Net과 PatchGAN을 결합하였습니다.
+기본 GAN 구조는 생성자(Generator)가 랜덤 노이즈를 입력받아 이미지를 생성하고 판별자(Discriminator)가 진짜 또는 가짜 이미지인지 구분하는 구조였지만 부분 이미지 및 복원에 특화된 PatchGAN을 결합하였고,
 
 실제 동작 과정은 U-Net에서 입력 이미지를 기반으로 복원/변환 이미지를 생성하고 PatchGAN은 그대로 생성된 이미지와 원본 이미지를 구분합니다.
+
+두 개를 결합해 사용한 이유는 부분 영역을 디테일하게 복원하는 효과를 기대하며 두 개를 결합하였습니다.
 
 <br/>
 
@@ -105,7 +127,9 @@ class PatchGANDiscriminator(nn.Module):
 
 ### 훈련 프로세스(training process)
 
-앞서 설명했듯이 생성자와 판별자를 번갈아가며 훈련합니다. 
+앞서 설명했듯이 생성자와 판별자를 존재하고 번갈아가며 훈련합니다.
+
+생성자는 더 자연스러운 이미지를 생성하도록 학습하고, 판별자는 진짜 이미지와 가짜 이미지를 구분하도록 학습합니다.
 
 <br/>
 
@@ -133,7 +157,7 @@ for epoch in range(epochs):
 
 + 가우시안 필터(Gaussian Filter)
 
-  가우시안 필터를 적용했습니다. 이미지의 노이즈를 제거하고 에지(Edge)를 부드럽게 만들어주는 효과가 있으며 Smoothness Loss를 평가하는 데 사용됩니다.
+  가우시안 필터를 적용했습니다. 가우시안 필터는 이미지의 노이즈를 제거하고 에지(Edge)를 더 부드럽게 만들어주기에 이미지의 전체적인 자연스러운 느낌을 살리기 위해 사용했습니다.
 
 <br/>
 
@@ -173,10 +197,14 @@ def gaussian_filter(x, kernel_size=5, sigma=1.0):
 
   세 가지 손실 함수 픽셀 손실(Pixel Loss), SSIM 손실(Structural Similarity Index Loss), 부드러움 손실(Smoothness Loss)을 결합했습니다.
 
-  Pixel Loss에서 생성된 이미지와 원본 이미지 사이의 픽셀 단위 평균 제곱 오차(MSE)를 계산하고 픽셀 값 차이를 측정하여 생성된 이미지의 정확성을 평가합니다. SSIM Loss에서는 이미지의 전체적인 구조와 패턴 유사성을 고려하여 평가하며, Smoothness Loss로 이미지를 평활화하고 이미지들 간의
+  Pixel Loss에서 생성된 이미지와 원본 이미지 사이의 픽셀 단위 평균 제곱 오차(MSE)를 계산하고 픽셀 값 차이를 측정하여 생성된 이미지의 
+  정확성을 평가합니다. SSIM Loss에서는 이미지의 전체적인 구조와 패턴 유사성을 고려하여 평가하며, Smoothness Loss로 이미지를 평활화
+  하고 이미지들 간의
   MSE를 계산합니다.
 
   최종적으로 각 손실에 가중치(α, β, γ)를 적용해 다양한 측면으로 최적화합니다.
+
+  가우시안 필터와 마찬가지로 이미지의 전체적인 자연스러운 느낌을 살리기 위해 사용했으며, 단일 손실 함수의 한계를 극복하기 위해 사용했습니다.
 
 <br/>
 
@@ -204,7 +232,15 @@ def gaussian_filter(x, kernel_size=5, sigma=1.0):
 
 ### 실험 결과(Experiment results)
 
-
+|**Model**|**Add parameter**|**Epoch**|**discriminator_loss**|**generator_loss**|**Dacon Score**|
+|:------:|:---:|:---:|:---:|:---:|:---:|
+|U-Net + PatchGAN||10|1.251|1.425|0.4642|
+|U-Net + PatchGAN||20|1.071|1.225|0.4772|
+|U-Net + PatchGAN||50|0.735|0.884|0.5071|
+|U-Net + PatchGAN|+ Gaussian Filter|10|1.214|1.382|0.4680|
+|U-Net + PatchGAN|+ Gaussian Filter|20|1.084|1.191|0.4772|
+|U-Net + PatchGAN|+ Gaussian Filter|30|0.781|0.890|0.5115|
+|U-Net + PatchGAN|+ Gaussian Filter|50|테스트2|테스트3|테스트3|
 
 <br/>
 
