@@ -207,27 +207,22 @@ for epoch in range(epochs):
 
 ```ruby
 def gaussian_filter(x, kernel_size=5, sigma=1.0):
-    # 가우시안 커널 생성을 위한 좌표 그리드 만들기
     x_coord = torch.arange(kernel_size)
     x_grid = x_coord.repeat(kernel_size).view(kernel_size, kernel_size)
     y_grid = x_grid.t()
     xy_grid = torch.stack([x_grid, y_grid], dim=-1).float()
 
-    # 가우시안 커널 계산
     mean = (kernel_size - 1) / 2.
     variance = sigma ** 2.
 
     gaussian_kernel = (1. / (2. * np.pi * variance)) * \
         torch.exp(-torch.sum((xy_grid - mean) ** 2., dim=-1) / (2 * variance))
 
-    # 커널 정규화
     gaussian_kernel = gaussian_kernel / torch.sum(gaussian_kernel)
     
-    # 커널 차원 재조정
     gaussian_kernel = gaussian_kernel.view(1, 1, kernel_size, kernel_size)
     gaussian_kernel = gaussian_kernel.repeat(x.size(1), 1, 1, 1)
 
-    # 이미지에 필터 적용
     padded_x = F.pad(x, (kernel_size//2, kernel_size//2, kernel_size//2, kernel_size//2), mode='reflect')
     filtered = F.conv2d(padded_x, gaussian_kernel, groups=x.size(1))
     
@@ -257,12 +252,10 @@ def gaussian_filter(x, kernel_size=5, sigma=1.0):
         pixel_loss = F.mse_loss(pred, target)
         ssim_loss = 1 - ssim(pred, target, data_range=1.0)
         
-        # 가우시안 필터로 이미지 평활화 손실 계산
         pred_smooth = gaussian_filter(pred)
         target_smooth = gaussian_filter(target)
         smoothness_loss = F.mse_loss(pred_smooth, target_smooth)
         
-        # 가중치를 적용한 복합 손실 함수
         total_loss = (self.alpha * pixel_loss + 
                       self.beta * ssim_loss + 
                       self.gamma * smoothness_loss)
