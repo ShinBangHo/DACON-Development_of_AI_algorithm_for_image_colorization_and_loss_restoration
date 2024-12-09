@@ -11,7 +11,7 @@
 
 - - -
 
-### 데이터(dataset info)
+### 데이터(Dataset Info)
 
 + __train_input[폴더]__ : 흑백, 일부 손상된 PNG 학습 이미지 (input, 29603장)
 
@@ -51,7 +51,7 @@
 <br/>
 
 - - -
-### 하이퍼 파라미터(hyper parameters)
+### 하이퍼 파라미터(Hyper Parameters)
 
 에포크마다 테스트 이미지 생성 및 ZIP 파일로 저장되게 설정했기 때문에 100으로 설정했습니다.
 
@@ -115,7 +115,7 @@ class ImageDataset(Dataset):
 
 - - -
 
-### 모델 아키텍쳐(model architecture)
+### 모델 아키텍쳐(Model Architecture)
 
 모델은 U-Net과 PatchGAN을 결합해 사용했습니다.
 
@@ -169,7 +169,7 @@ class PatchGANDiscriminator(nn.Module):
 
 - - -
 
-### 훈련 프로세스(training process)
+### 훈련 프로세스(Training Process)
 
 앞서 설명했듯이 생성자와 판별자를 존재하고 번갈아가며 훈련합니다.
 
@@ -197,7 +197,7 @@ for epoch in range(epochs):
 
 - - -
 
-### 기타 및 개선 사항(Other improvements)
+### 기타 및 개선 사항(Other Improvements)
 
 + __가우시안 필터(Gaussian Filter)__
 
