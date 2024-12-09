@@ -275,8 +275,8 @@ def gaussian_filter(x, kernel_size=5, sigma=1.0):
 |U-Net + PatchGAN||50|0.735|0.884|0.5071|
 |U-Net + PatchGAN|+ Gaussian Filter|10|1.214|1.382|0.4680|
 |U-Net + PatchGAN|+ Gaussian Filter|20|1.084|1.191|0.4772|
-|U-Net + PatchGAN|+ Gaussian Filter|30|0.781|0.890|0.5115|
-|U-Net + PatchGAN|+ Gaussian Filter|50|테스트2|테스트3|테스트3|
+|U-Net + PatchGAN|+ Gaussian Filter|50|0.781|0.890|0.5181|
+|U-Net + PatchGAN|+ Gaussian Filter|60|0.895|1.092|0.5098|
 
 <br/>
 
