@@ -271,10 +271,10 @@ def gaussian_filter(x, kernel_size=5, sigma=1.0):
 |**Model**|**Add parameter**|**Epoch**|**discriminator_loss**|**generator_loss**|**Dacon Score**|
 |:------:|:---:|:---:|:---:|:---:|:---:|
 |U-Net + PatchGAN||10|1.251|1.425|0.4642|
-|U-Net + PatchGAN||20|1.071|1.225|0.4772|
+|U-Net + PatchGAN||20|1.071|1.225|0.4742|
 |U-Net + PatchGAN||50|0.735|0.884|0.5071|
 |U-Net + PatchGAN|+ Gaussian Filter|10|1.214|1.382|0.4680|
-|U-Net + PatchGAN|+ Gaussian Filter|20|1.084|1.191|0.4772|
+|U-Net + PatchGAN|+ Gaussian Filter|20|1.084|1.191|0.4813|
 |U-Net + PatchGAN|+ Gaussian Filter|50|0.781|0.890|0.5181|
 |U-Net + PatchGAN|+ Gaussian Filter|60|0.895|1.092|0.5098|
 
